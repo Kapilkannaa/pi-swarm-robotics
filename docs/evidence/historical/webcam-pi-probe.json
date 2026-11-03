@@ -1,0 +1,20 @@
+{
+  "mode": "actual-laptop-webcam-to-actual-pi-paused",
+  "physical_motor_trial": false,
+  "opened": true,
+  "frame_received": true,
+  "frame_shape": [
+    480,
+    640,
+    3
+  ],
+  "pi_response": "raspberry-pi-coordinator",
+  "pi_running": false,
+  "commands": {
+    "2": {
+      "left": 0,
+      "right": 0,
+      "laser": false
+    }
+  }
+}

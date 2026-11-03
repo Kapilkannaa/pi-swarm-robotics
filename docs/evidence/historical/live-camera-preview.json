@@ -1,0 +1,35 @@
+{
+  "mode": "actual-laptop-camera-actual-pi-actual-robot-preview",
+  "images_saved": false,
+  "navigation_trial": false,
+  "sample": {
+    "time": 1792125798.2558548,
+    "camera_age_s": 0.015,
+    "probability": 0.267184111361979,
+    "accepted": false,
+    "inference_host": "BlueBerry",
+    "motors": [
+      0,
+      0
+    ],
+    "robot": {
+      "project": "pi-swarm-v1",
+      "id": 2,
+      "ip": "PRIVATE_ADDRESS_REDACTED",
+      "motors_enabled": false,
+      "ok": 24098,
+      "bad": 0,
+      "left": 0,
+      "right": 0,
+      "marker": 0,
+      "swap": 1,
+      "invert_left": 0,
+      "invert_right": 0
+    },
+    "robot_reply_age_s": 0.51,
+    "robot_online": true,
+    "camera_lease_valid": true
+  },
+  "live_samples_observed": 135,
+  "positive_real_object_acceptance_observed": true
+}

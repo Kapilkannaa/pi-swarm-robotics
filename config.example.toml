@@ -1,0 +1,31 @@
+# Copy to config.toml (gitignored) and edit. Values marked ASSUMED are placeholders
+# until you measure them; the code never treats them as facts.
+
+[wifi]
+ssid = "YOUR_SSID"          # 2.4 GHz only: the ESP8266 cannot join 5 GHz
+password = "YOUR_PASSWORD"
+
+[arena]
+width_m = 1.00              # the arena we decided on; measure the real one and edit
+height_m = 0.75
+
+[camera]
+url = "http://PHONE_IP:8080/video"   # IP-camera app stream URL (set in Phase 5)
+
+# One entry per bot. id = ArUco marker ID = firmware BOT_ID. ip comes from the
+# serial monitor after the bot joins Wi-Fi (reserve it in your router if you can).
+[[bots]]
+id = 1
+ip = "192.168.0.101"
+
+[[bots]]
+id = 2
+ip = "192.168.0.102"
+port = 4210
+
+[control]
+v_max_mps = 0.20            # ASSUMED: speed at command 100; measure in Phase 6
+track_m = 0.10              # ASSUMED: wheel-to-wheel distance; measure
+min_cmd = 35                # ASSUMED: smallest command that reliably moves the bot
+detect_radius_m = 0.20      # virtual sensing radius for target discovery (see README)
+latency_s = 0.4             # command-to-visible-motion delay; measure with scripts/measure_latency.py (>0.1 = burst control)

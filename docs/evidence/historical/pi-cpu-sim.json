@@ -1,0 +1,227 @@
+{
+  "mode": "real-pi-cpu-simulation-no-physical-motion",
+  "trials": [
+    {
+      "seed": 0,
+      "success": true,
+      "contacts": 0,
+      "seconds": 45.45,
+      "learning": {
+        "1": {
+          "speed": 0.10341396264877947,
+          "omega": 2.4486559887865966,
+          "trim": 2.462989254984745,
+          "rot_power": 50.0,
+          "fwd_power": 50.0
+        },
+        "2": {
+          "speed": 0.09576207819646412,
+          "omega": 2.7203333851622844,
+          "trim": 0.11219557957463988,
+          "rot_power": 50.0,
+          "fwd_power": 50.0
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "success": true,
+      "contacts": 0,
+      "seconds": 20.3,
+      "learning": {
+        "1": {
+          "speed": 0.09885146106244977,
+          "omega": 3.646592226844154,
+          "trim": 0.4091192377661713,
+          "rot_power": 45.0,
+          "fwd_power": 50.0
+        },
+        "2": {
+          "speed": 0.11453546969782441,
+          "omega": 2.1697927773657972,
+          "trim": -0.5768311053954429,
+          "rot_power": 45.0,
+          "fwd_power": 50.0
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "success": true,
+      "contacts": 0,
+      "seconds": 46.15,
+      "learning": {
+        "1": {
+          "speed": 0.09792045524666232,
+          "omega": 2.588115350989265,
+          "trim": 5.295866944256291,
+          "rot_power": 55.0,
+          "fwd_power": 50.0
+        },
+        "2": {
+          "speed": 0.1001284592795704,
+          "omega": 2.830343165743965,
+          "trim": 0.33066087727158566,
+          "rot_power": 55.0,
+          "fwd_power": 50.0
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "success": true,
+      "contacts": 0,
+      "seconds": 48.8,
+      "learning": {
+        "1": {
+          "speed": 0.09198260119029003,
+          "omega": 2.611813323122586,
+          "trim": 1.1024647163621175,
+          "rot_power": 50.0,
+          "fwd_power": 50.0
+        },
+        "2": {
+          "speed": 0.1023480104503337,
+          "omega": 1.6907958443805438,
+          "trim": 3.4080703006316178,
+          "rot_power": 45.0,
+          "fwd_power": 50.0
+        }
+      }
+    },
+    {
+      "seed": 4,
+      "success": true,
+      "contacts": 0,
+      "seconds": 32.1,
+      "learning": {
+        "1": {
+          "speed": 0.08519450624975193,
+          "omega": 3.1471256491627253,
+          "trim": -1.380076166554651,
+          "rot_power": 45.0,
+          "fwd_power": 50.0
+        },
+        "2": {
+          "speed": 0.09505618212351218,
+          "omega": 2.370781959098139,
+          "trim": -1.8287970797330346,
+          "rot_power": 45.0,
+          "fwd_power": 50.0
+        }
+      }
+    },
+    {
+      "seed": 5,
+      "success": true,
+      "contacts": 0,
+      "seconds": 29.9,
+      "learning": {
+        "1": {
+          "speed": 0.11574674590433298,
+          "omega": 2.90749806071159,
+          "trim": -0.1695557146706329,
+          "rot_power": 50.0,
+          "fwd_power": 50.0
+        },
+        "2": {
+          "speed": 0.10406355579033608,
+          "omega": 2.207417632704971,
+          "trim": -0.2894262716584438,
+          "rot_power": 45.0,
+          "fwd_power": 50.0
+        }
+      }
+    },
+    {
+      "seed": 6,
+      "success": true,
+      "contacts": 0,
+      "seconds": 25.3,
+      "learning": {
+        "1": {
+          "speed": 0.10164636891344372,
+          "omega": 3.366048317124773,
+          "trim": 2.3438060552395874,
+          "rot_power": 45.0,
+          "fwd_power": 50.0
+        },
+        "2": {
+          "speed": 0.09476801314536448,
+          "omega": 1.8416390685991044,
+          "trim": -3.6018348532712707,
+          "rot_power": 45.0,
+          "fwd_power": 50.0
+        }
+      }
+    },
+    {
+      "seed": 7,
+      "success": true,
+      "contacts": 0,
+      "seconds": 29.0,
+      "learning": {
+        "1": {
+          "speed": 0.10116751598893295,
+          "omega": 2.044377668598119,
+          "trim": -3.617540598684593,
+          "rot_power": 45.0,
+          "fwd_power": 50.0
+        },
+        "2": {
+          "speed": 0.09920185879274881,
+          "omega": 1.8531501934289645,
+          "trim": 0.657503591991826,
+          "rot_power": 45.0,
+          "fwd_power": 50.0
+        }
+      }
+    },
+    {
+      "seed": 8,
+      "success": true,
+      "contacts": 0,
+      "seconds": 52.55,
+      "learning": {
+        "1": {
+          "speed": 0.10471498579370976,
+          "omega": 2.2668506245935047,
+          "trim": 4.449695924250829,
+          "rot_power": 50.0,
+          "fwd_power": 50.0
+        },
+        "2": {
+          "speed": 0.0972139541916048,
+          "omega": 1.8691252230497102,
+          "trim": -1.3769014333954532,
+          "rot_power": 50.0,
+          "fwd_power": 50.0
+        }
+      }
+    },
+    {
+      "seed": 9,
+      "success": true,
+      "contacts": 0,
+      "seconds": 20.95,
+      "learning": {
+        "1": {
+          "speed": 0.09768408265517411,
+          "omega": 2.168356864500071,
+          "trim": 0.977488254066811,
+          "rot_power": 50.0,
+          "fwd_power": 50.0
+        },
+        "2": {
+          "speed": 0.10135032193154966,
+          "omega": 2.0317444616353093,
+          "trim": -2.515500062543869,
+          "rot_power": 45.0,
+          "fwd_power": 50.0
+        }
+      }
+    }
+  ],
+  "successes": 10,
+  "contacts": 0
+}

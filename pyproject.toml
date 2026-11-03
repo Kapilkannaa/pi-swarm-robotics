@@ -1,0 +1,18 @@
+[project]
+name = "swarm"
+version = "0.1.0"
+description = "AI-coordinated 2-bot (N-ready) swarm: search, converge, laser-mark"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+# the planner/controller/simulator are stdlib-only; the camera pipeline, live runner and some tests need these
+vision = ["numpy", "opencv-python", "pillow"]
+dev = ["pytest", "pyserial"]
+deploy = ["paramiko"]
+
+[tool.setuptools]
+packages = ["swarm", "swarm.sim", "swarm.vision"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

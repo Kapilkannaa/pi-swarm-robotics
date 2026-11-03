@@ -1,0 +1,6 @@
+name,n,success,mean_t,max_t,collisions
+Fast camera / continuous,10,10,15.209999999999953,50.29999999999928,0
+Delayed camera / continuous,10,0,nan,nan,0
+Delayed camera / burst,10,10,34.39499999999994,49.849999999999305,0
+Burst + 15% packet loss,10,10,32.84499999999996,53.699999999999086,0
+Burst + 25% wheel mismatch,10,10,36.93499999999976,66.39999999999837,0

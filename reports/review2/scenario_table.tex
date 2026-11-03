@@ -1,0 +1,10 @@
+\begin{table}[ht]\centering\small
+\begin{tabularx}{\textwidth}{@{}Yrrrr@{}}\toprule
+Scenario & Success & Mean (s) & Worst (s) & Contacts\\\midrule
+Fast camera / continuous & 10/10 & 15.21 & 50.30 & 0\\
+Delayed camera / continuous & 0/10 & -- & -- & 0\\
+Delayed camera / burst & 10/10 & 34.39 & 49.85 & 0\\
+Burst + 15\% packet loss & 10/10 & 32.84 & 53.70 & 0\\
+Burst + 25\% wheel mismatch & 10/10 & 36.93 & 66.40 & 0\\
+\bottomrule\end{tabularx}
+\caption{Fresh simulation scenarios, 10 seeds per row, generated 3 November 2026. These are not physical robot results.}\label{tab:scenarios}\end{table}

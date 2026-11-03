@@ -1,0 +1,104 @@
+{
+  "date": "2026-11-03",
+  "scenario_rows": [
+    {
+      "name": "Fast camera / continuous",
+      "n": 10,
+      "success": 10,
+      "mean_t": 15.209999999999953,
+      "max_t": 50.29999999999928,
+      "collisions": 0
+    },
+    {
+      "name": "Delayed camera / continuous",
+      "n": 10,
+      "success": 0,
+      "mean_t": null,
+      "max_t": null,
+      "collisions": 0
+    },
+    {
+      "name": "Delayed camera / burst",
+      "n": 10,
+      "success": 10,
+      "mean_t": 34.39499999999994,
+      "max_t": 49.849999999999305,
+      "collisions": 0
+    },
+    {
+      "name": "Burst + 15% packet loss",
+      "n": 10,
+      "success": 10,
+      "mean_t": 32.84499999999996,
+      "max_t": 53.699999999999086,
+      "collisions": 0
+    },
+    {
+      "name": "Burst + 25% wheel mismatch",
+      "n": 10,
+      "success": 10,
+      "mean_t": 36.93499999999976,
+      "max_t": 66.39999999999837,
+      "collisions": 0
+    }
+  ],
+  "ablation": [
+    [
+      "learning ON,  poor initial guesses",
+      10,
+      10,
+      52.08499999999918
+    ],
+    [
+      "learning OFF, correct initial guesses",
+      10,
+      10,
+      49.48999999999933
+    ],
+    [
+      "learning OFF, poor initial guesses",
+      10,
+      0,
+      null
+    ]
+  ],
+  "offload": {
+    "job_id": "review2-local-validation",
+    "goal": [
+      0.8,
+      0.55
+    ],
+    "profiles": [
+      {
+        "profile": "conservative",
+        "trials": 12,
+        "successes": 12,
+        "mean_time_s": 18.78,
+        "worst_error_m": 0.055,
+        "near_boundary_trials": 0
+      },
+      {
+        "profile": "current",
+        "trials": 12,
+        "successes": 12,
+        "mean_time_s": 16.05,
+        "worst_error_m": 0.04,
+        "near_boundary_trials": 0
+      },
+      {
+        "profile": "longer-bursts",
+        "trials": 12,
+        "successes": 12,
+        "mean_time_s": 15.21,
+        "worst_error_m": 0.042,
+        "near_boundary_trials": 0
+      }
+    ],
+    "recommendation": "longer-bursts",
+    "work_steps": 12009,
+    "compute_ms": 243.2,
+    "physics": "assumed motor speed/mismatch, camera lag and packet loss; not hardware measurements",
+    "applied_to_motors": false,
+    "execution_host": "laptop; no current Pi execution claimed"
+  }
+}

@@ -1,0 +1,2 @@
+scripted goals: [(0.75, 0.5)]
+final true position (0.73, 0.50); last goal (0.75, 0.5), error 16 mm

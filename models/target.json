@@ -1,0 +1,32 @@
+{
+  "features": [
+    "red_excess",
+    "saturation",
+    "brightness",
+    "circularity",
+    "extent",
+    "aspect"
+  ],
+  "weights": [
+    6.025306834460178,
+    -1.7478016962236742,
+    -1.6403191123077492,
+    2.7119068142439917,
+    -3.2217667912740646,
+    4.850676159848986
+  ],
+  "bias": -2.350380065908218,
+  "threshold": 0.8,
+  "metadata": {
+    "source": "synthetic images; separate seeds 42/901",
+    "train_samples": 1200,
+    "test_samples": 400,
+    "tp": 200,
+    "fp": 0,
+    "tn": 200,
+    "fn": 0,
+    "accuracy": 1.0,
+    "real_camera_validated": false,
+    "purpose": "red round target token; not generic object detection"
+  }
+}

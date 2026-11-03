@@ -1,0 +1,39 @@
+{
+  "job_id": "review2-local-validation",
+  "goal": [
+    0.8,
+    0.55
+  ],
+  "profiles": [
+    {
+      "profile": "conservative",
+      "trials": 12,
+      "successes": 12,
+      "mean_time_s": 18.78,
+      "worst_error_m": 0.055,
+      "near_boundary_trials": 0
+    },
+    {
+      "profile": "current",
+      "trials": 12,
+      "successes": 12,
+      "mean_time_s": 16.05,
+      "worst_error_m": 0.04,
+      "near_boundary_trials": 0
+    },
+    {
+      "profile": "longer-bursts",
+      "trials": 12,
+      "successes": 12,
+      "mean_time_s": 15.21,
+      "worst_error_m": 0.042,
+      "near_boundary_trials": 0
+    }
+  ],
+  "recommendation": "longer-bursts",
+  "work_steps": 12009,
+  "compute_ms": 243.2,
+  "physics": "assumed motor speed/mismatch, camera lag and packet loss; not hardware measurements",
+  "applied_to_motors": false,
+  "execution_host": "laptop; no current Pi execution claimed"
+}

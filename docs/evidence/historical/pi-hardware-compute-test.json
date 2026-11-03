@@ -1,0 +1,28 @@
+{
+  "mode": "actual-pi-brain-simulated-camera-and-robot",
+  "physical_motor_trial": false,
+  "success": true,
+  "phase": "done",
+  "ticks": 556,
+  "wall_seconds": 31.05,
+  "initial_learning": {
+    "2": {
+      "speed": 0.1,
+      "omega": 1.0,
+      "trim": 0.0,
+      "rot_power": 45.0,
+      "fwd_power": 50.0
+    }
+  },
+  "final_learning": {
+    "2": {
+      "speed": 0.09577469326901628,
+      "omega": 2.5389955882752053,
+      "trim": 2.354144311608418,
+      "rot_power": 45.0,
+      "fwd_power": 50.0
+    }
+  },
+  "contacts": 0,
+  "actual_motor_outputs_zero": true
+}

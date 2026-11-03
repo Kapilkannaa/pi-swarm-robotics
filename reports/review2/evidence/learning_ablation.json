@@ -1,0 +1,20 @@
+[
+  [
+    "learning ON,  poor initial guesses",
+    10,
+    10,
+    52.08499999999918
+  ],
+  [
+    "learning OFF, correct initial guesses",
+    10,
+    10,
+    49.48999999999933
+  ],
+  [
+    "learning OFF, poor initial guesses",
+    10,
+    0,
+    null
+  ]
+]

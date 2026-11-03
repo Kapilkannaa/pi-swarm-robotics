@@ -1,0 +1,20 @@
+// Copy to bot_config.h (gitignored) and edit. This is the ONLY file that differs between bots.
+#pragma once
+
+#define WIFI_SSID "YOUR_SSID"        // 2.4 GHz network only
+#define WIFI_PASSWORD "YOUR_PASSWORD"
+
+#define BOT_ID 1                     // must match this bot's ArUco marker ID and config.toml
+#define UDP_PORT 4210
+
+// Phase 4 direction test: if the "left" command moves the physically right wheel, set SWAP_SIDES true.
+// Then flip INVERT_* for any wheel that turns the wrong way (applies to the logical side).
+#define SWAP_SIDES false
+#define INVERT_LEFT false
+#define INVERT_RIGHT false
+
+// Demo stand-in until the real marker circuit exists: light the on-board LED (D4) while the marker is "on".
+#define MARKER_ONBOARD_LED false
+
+// Keep false during provisioning. Enable only after wheels-raised motor checks are authorized.
+#define MOTORS_ENABLED false

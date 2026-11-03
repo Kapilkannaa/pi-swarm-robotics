@@ -1,0 +1,18 @@
+{
+  "mode": "actual-pi-to-actual-esp8266-bench",
+  "physical_motor_trial": false,
+  "id": 2,
+  "ip": "PRIVATE_ADDRESS_REDACTED",
+  "motor_lock": true,
+  "zero_commands_accepted": 10,
+  "marker_on": 1,
+  "marker_off_after_streamed_3s": 0,
+  "max_marker_command_gap_s": 0.063,
+  "marker_rearmed": 1,
+  "marker_off_after_no_command_650ms": 0,
+  "final_outputs": [
+    0,
+    0
+  ],
+  "note": "validates reported firmware outputs/LED state, not physical motor stopping distance"
+}

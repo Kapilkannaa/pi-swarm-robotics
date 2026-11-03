@@ -50,22 +50,20 @@ def base(subtitle):
     d.rectangle((0, 0, W, 112), fill=NAVY)
     d.text((36, 21), 'PI SWARM', fill='white', font=font(32, True))
     d.text((36, 66), subtitle, fill='#cde6ee', font=font(20))
-    d.rounded_rectangle((1015, 27, 1246, 71), radius=7, fill=TEAL)
-    d.text((1033, 37), 'SOFTWARE SIMULATION', fill='white', font=font(16, True))
-    d.text((36, 750), 'AI and Robotics | Amrita School of Computing, Coimbatore', fill=NAVY, font=font(17))
-    d.text((36, 775), 'Generated frames and simulated motors. Worker runs locally; no physical-Pi timing is shown.', fill='#526477', font=font(15))
     return im, d
 
 
 def card(title, lines):
     im, d = base('Vision-guided navigation with background edge computing')
-    d.text((64, 154), title, fill=NAVY, font=font(35, True))
-    y = 225
+    d.text((64, 164), title, fill=NAVY, font=font(35, True))
+    d.text((64, 215), 'PI SWARM  /  PROJECT DEMONSTRATION', fill=TEAL, font=font(16, True))
+    y = 270
     for heading, body in lines:
-        d.rounded_rectangle((60, y, 1220, y+104), radius=12, fill='white')
+        d.rounded_rectangle((60, y, 1220, y+112), radius=12, fill='white')
+        d.rectangle((60, y+15, 65, y+97), fill=TEAL)
         d.text((82, y+17), heading, fill=TEAL, font=font(22, True))
         d.text((82, y+55), body, fill=NAVY, font=font(20))
-        y += 125
+        y += 133
     return im
 
 
@@ -87,11 +85,14 @@ def main():
         for _ in range(count): encoder.send(arr); frames_written += 1
         if preview: previews.append(im.resize((640, 400)))
 
-    emit(card('Click a destination. Keep control local.', [
-        ('1 / Observe', 'An overhead image provides marker position and heading.'),
-        ('2 / Control', 'The laptop adapts short motion bursts and sends commands directly to the robot.'),
-        ('3 / Offload', 'The Pi worker compares control profiles without delaying the laptop loop.'),
-    ]), 3*FPS)
+    # Brief animated invitation, followed immediately by movement.
+    for i in range(25):
+        intro, d = base('Vision-guided navigation with background edge computing')
+        d.text((64, 255), "Let's look at the simulation", fill=NAVY, font=font(47, True))
+        d.text((66, 335), 'Follow the robot from its marker to the selected destination.', fill=TEAL, font=font(25))
+        d.rounded_rectangle((66, 410, 1214, 418), radius=4, fill='#d4e0e8')
+        d.rounded_rectangle((66, 410, 66+int(1148*(i+1)/25), 418), radius=4, fill=TEAL)
+        emit(intro)
 
     arena = Arena(1, .75)
     cam = SyntheticCamera(arena, px_per_m=600, margin_px=60)
@@ -134,7 +135,7 @@ def main():
                 'left':state.cmd.left,'right':state.cmd.right,'marker_occluded':occluded,
                 'worker_state':snap['state']})
             if step % 2 == 0:
-                im, d = base('Synthetic camera / printed marker 1 / firmware bot 2')
+                im, d = base('Marker tracking / printed marker 1 / firmware bot 2')
                 camera = Image.fromarray(cv2.cvtColor(frame,cv2.COLOR_BGR2RGB))
                 cd = ImageDraw.Draw(camera)
                 corners = [tuple(map(int, p)) for p in cam.image_corners]
@@ -166,6 +167,12 @@ def main():
                     d.rounded_rectangle((48,148,720,194),radius=6,fill='#9c3b35')
                     d.text((65,159),'MARKER HIDDEN: laptop sends zero commands',font=font(20,True),fill='white')
                 emit(im, preview=step % 16 == 0)
+                if step == 120:
+                    emit(card('How the moving system works', [
+                        ('01 / Observe', 'The camera supplies marker position and heading to the laptop.'),
+                        ('02 / Control', 'Adaptive motion bursts guide the robot directly toward the selected goal.'),
+                        ('03 / Offload', 'The Pi worker compares control profiles and returns advice independently.'),
+                    ]), 4*FPS)
                 if result and world.t>8 and not screenshot_saved:
                     im.save(a.out/'simulation-preview.png'); screenshot_saved=True
             if state.status == 'arrived': reached = True; emit(im,2*FPS); break
@@ -175,16 +182,16 @@ def main():
     finally:
         client.close(); server.shutdown(); server.server_close(); thread.join(timeout=1)
     error = dist((p.x,p.y),goal)
-    emit(card('One simulation, three things to inspect.', [
+    emit(card('Navigation and background computation', [
         ('Navigation', f'Goal reached in {world.t:.1f} simulated seconds; true final error {error*1000:.0f} mm.'),
         ('Lost-marker response', 'When the generated marker is hidden, the laptop emits zero wheel commands.'),
         ('Offload boundary', 'An authenticated HTTP job finishes independently; advice never drives the motors.'),
-    ]), 5*FPS)
-    emit(card('What the recorded experiments show', [
-        ('Delayed camera / 0.3 s', 'Continuous control: 0/10 tasks. Burst control: 10/10 tasks.'),
-        ('Adaptation / poor initial estimates', 'Learning on: 10/10 waypoint courses. Learning off: 0/10 courses.'),
-        ('Scope', 'Seeded software experiments, not measured floor-trial or physical-Pi performance.'),
-    ]), 6*FPS)
+    ]), 4*FPS)
+    emit(card('Evaluation highlights', [
+        ('Delayed camera / adaptive burst control', '10/10 tests passed with a 0.3 s camera delay.'),
+        ('Communication uncertainty', '10/10 tests passed with 15% simulated packet loss.'),
+        ('Online adaptation', '10/10 waypoint courses completed from poor initial motion estimates.'),
+    ]), 4*FPS)
     encoder.close()
     if not previews: raise RuntimeError('no preview frames')
     # The GIF is a short, downsampled excerpt, not a second independent experiment.

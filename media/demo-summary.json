@@ -1,24 +1,24 @@
-{
-  "mode": "software simulation; no hardware used",
-  "seed": 7,
-  "firmware_bot_id": 2,
-  "printed_marker_id": 1,
-  "goal_m": [
-    0.75,
-    0.5
-  ],
-  "simulated_duration_s": 17.450000000000113,
-  "final_true_pose_m_rad": [
-    0.7294945883677354,
-    0.49708662214785265,
-    0.4958399999999975
-  ],
-  "final_error_m": 0.02071134174113293,
-  "reached": true,
-  "lost_marker_zero_commands": true,
-  "http_worker_completed": true,
-  "worker_execution_host": "laptop, not physical Raspberry Pi",
-  "video_fps": 20,
-  "video_frames": 495,
-  "video_duration_s": 24.75
+{
+  "mode": "software simulation; no hardware used",
+  "seed": 7,
+  "firmware_bot_id": 2,
+  "printed_marker_id": 1,
+  "goal_m": [
+    0.75,
+    0.5
+  ],
+  "simulated_duration_s": 17.450000000000113,
+  "final_true_pose_m_rad": [
+    0.7294945883677354,
+    0.49708662214785265,
+    0.4958399999999975
+  ],
+  "final_error_m": 0.02071134174113293,
+  "reached": true,
+  "lost_marker_zero_commands": true,
+  "http_worker_completed": true,
+  "worker_execution_host": "laptop, not physical Raspberry Pi",
+  "video_fps": 20,
+  "video_frames": 480,
+  "video_duration_s": 24.0
 }

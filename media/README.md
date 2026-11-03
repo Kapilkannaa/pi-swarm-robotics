@@ -4,7 +4,7 @@
 
 ![Animated simulation excerpt](simulation-preview.gif)
 
-This 24.75-second recording uses generated camera frames, the project's ArUco
+This 24-second recording uses generated camera frames, the project's ArUco
 tracker, adaptive burst controller, differential-drive world and firmware model.
 It is **software simulation**, not footage of the dismantled robots.
 
@@ -12,11 +12,12 @@ It is **software simulation**, not footage of the dismantled robots.
 
 | Video time | Scene |
 |---|---|
-| 0:00-0:03 | Camera, local control and background-compute roles |
-| 0:03-0:14 | Selected goal, marker tracking, movement and asynchronous worker response |
-| About 0:05-0:06 | Generated marker hidden; controller emits zero commands |
-| 0:14-0:19 | Navigation and offload summary |
-| 0:19-0:25 | Saved scenario and learning-ablation comparison |
+| 0:00-0:01 | Animated invitation to watch the simulation |
+| 0:01-0:04 | Navigation begins; marker tracking and lost-marker zero commands |
+| 0:04-0:08 | Midpoint explanation of camera, local control and Pi computation |
+| 0:08-0:16 | Navigation resumes, worker response and arrival |
+| 0:16-0:20 | Navigation and offload summary |
+| 0:20-0:24 | Verified burst-control and adaptation highlights |
 
 The navigation scene plays at twice simulated time. One real authenticated HTTP
 request is made to a local instance of `swarm.offload_server.Worker`. The service

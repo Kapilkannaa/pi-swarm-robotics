@@ -1,11 +1,12 @@
-{
-  "pages": 16,
-  "course_correct": true,
-  "old_course_absent": true,
-  "prepared_date_absent": true,
-  "em_dash_count": 0,
-  "handoff_absent": true,
-  "all_team_members": true,
-  "simulation_disclosed": true,
-  "required_subsections": true
+{
+  "pages": 16,
+  "course_correct": true,
+  "old_course_absent": true,
+  "prepared_date_absent": true,
+  "em_dash_count": 0,
+  "handoff_absent": true,
+  "all_team_members": true,
+  "simulation_disclosed": true,
+  "required_subsections": true,
+  "build_appendix_removed": true
 }

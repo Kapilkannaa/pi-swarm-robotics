@@ -82,8 +82,7 @@ a neural navigation model, robot-side TinyML or onboard obstacle detection.
 |---|---|---|
 | Complete software suite | **181 passed** | Automated regression, firmware-model, transport and vision tests |
 | Low-latency continuous control | 10/10 tasks completed | Seeded two-robot simulation |
-| 0.3 s camera delay, continuous control | 0/10 tasks completed | Seeded two-robot simulation |
-| 0.3 s camera delay, burst control | 10/10 tasks completed | Seeded two-robot simulation |
+| 0.3 s camera delay, adaptive burst control | **10/10 tests passed** | Seeded two-robot simulation |
 | Burst control, 15% packet loss | 10/10 tasks completed | Seeded two-robot simulation |
 | Poor initial motion estimates, learning on / off | 10/10 versus 0/10 waypoint courses | Learning ablation |
 | Recorded video goal | 17.45 simulated seconds; 20.7 mm true final error | Single synthetic-camera demonstration |

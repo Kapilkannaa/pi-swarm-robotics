@@ -1,0 +1,3 @@
+# Optional recording dependency; normal application dependencies are unchanged.
+-r requirements.txt
+imageio-ffmpeg==0.8.0

@@ -1,0 +1,40 @@
+{
+  "job_id": "2479ef398b6e46f9b85a505e0b5432f3",
+  "goal": [
+    0.75,
+    0.5
+  ],
+  "profiles": [
+    {
+      "profile": "conservative",
+      "trials": 12,
+      "successes": 12,
+      "mean_time_s": 17.12,
+      "worst_error_m": 0.05,
+      "near_boundary_trials": 0
+    },
+    {
+      "profile": "current",
+      "trials": 12,
+      "successes": 12,
+      "mean_time_s": 14.06,
+      "worst_error_m": 0.051,
+      "near_boundary_trials": 0
+    },
+    {
+      "profile": "longer-bursts",
+      "trials": 12,
+      "successes": 12,
+      "mean_time_s": 14.25,
+      "worst_error_m": 0.043,
+      "near_boundary_trials": 0
+    }
+  ],
+  "recommendation": "current",
+  "work_steps": 10902,
+  "compute_ms": 191.8,
+  "physics": "assumed motor speed/mismatch, camera lag and packet loss; not hardware measurements",
+  "applied_to_motors": false,
+  "host": "local simulation worker",
+  "completed_jobs": 1
+}

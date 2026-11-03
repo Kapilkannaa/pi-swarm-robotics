@@ -1,21 +1,200 @@
+<div align="center">
+
 # Pi Swarm
 ### Vision-Guided Robot Navigation with Background Edge Computing
 
-[![Tests](https://github.com/Kapilkannaa/pi-swarm-robotics/actions/workflows/tests.yml/badge.svg)](https://github.com/Kapilkannaa/pi-swarm-robotics/actions/workflows/tests.yml)
+An overhead camera observes. A laptop adapts and controls. A Raspberry Pi evaluates alternatives.
 
-An **AI in Robotics semester project** using two ESP8266 robot platforms, an overhead
-phone/laptop camera, a laptop controller, and a Raspberry Pi background worker.
-Select a point in the camera image; the laptop guides the selected robot toward it.
-The Pi evaluates alternative control profiles asynchronously, outside the motor-command path.
+[![tests](https://github.com/Kapilkannaa/pi-swarm-robotics/actions/workflows/tests.yml/badge.svg)](https://github.com/Kapilkannaa/pi-swarm-robotics/actions/workflows/tests.yml)
+![Python](https://img.shields.io/badge/python-3.12-203e65)
+![Controller](https://img.shields.io/badge/controller-ESP8266-087f8c)
+![Evaluation](https://img.shields.io/badge/evaluation-simulation%20%2B%20archived%20bench-596779)
 
-**[Review 2 report (PDF)](reports/review2/review2.pdf)** ·
-**[Editable LaTeX](reports/review2/review2.tex)** ·
-**[Start here / handoff](HANDOFF.md)** ·
-**[Evaluation evidence](reports/review2/evidence/)**
+**[Read the report](reports/review2/review2.pdf)** · **[Watch the simulation](https://github.com/Kapilkannaa/pi-swarm-robotics/releases/download/review2-2026-11-03/Pi-Swarm-Simulation.mp4)** · **[Explore the design](docs/ARCHITECTURE.md)** · **[Run it locally](#run-the-simulation)**
+
+![Animated excerpt from the software simulation](media/simulation-preview.gif)
+
+*Generated camera images and simulated motors. The worker service runs locally in this recording.*
+
+</div>
+
+## What does the project do?
+
+Pi Swarm explores camera-guided navigation for inexpensive robots with no onboard
+position or distance sensors. The operator selects a destination in an overhead
+phone-camera image or webcam view. The laptop estimates the robot's position and
+heading, corrects its movement, and sends commands directly to an ESP8266 board.
+
+Camera delay makes this harder than ordinary remote control: a command may still
+be acting while the displayed image shows an older position. The controller uses
+short motion bursts followed by observation periods. It learns approximate forward
+and turning rates from the resulting movement instead of assuming identical motors.
+
+The Raspberry Pi has a separate compute role. It evaluates three possible burst
+profiles across randomized trajectories and returns a comparison. This analysis
+does not block local control or replace a stop decision. Recommendations are shown
+as advice and are not automatically applied to moving hardware.
+
+## Start with these four items
+
+| Item | What to look for |
+|---|---|
+| [Review 2 report](reports/review2/review2.pdf) | Problem, equations, design, implementation, results and references |
+| [Simulation video and source](media/README.md) | Marker tracking, selected goal, lost-marker response and background computation |
+| [Project guide](PROJECT_GUIDE.md) | Important entry points, robot identities and configuration |
+| [Recorded evaluation](reports/review2/evidence/) | Scenario CSV, learning ablation, offload output and the full test log |
+
+## How the parts work together
+
+```mermaid
+flowchart LR
+    C[Overhead phone camera or webcam] -->|video| L[Laptop: marker tracking and adaptive burst control]
+    U[Operator selects destination] --> L
+    L -->|direct Wi-Fi UDP| B[ESP8266 and L298N: motor actuation and watchdog]
+    L -. pose, goal and assumptions .-> P[Raspberry Pi: Monte Carlo profile evaluation]
+    P -. advisory comparison .-> L
+```
+
+| Component | Responsibility |
+|---|---|
+| Camera | External visual sensing; ArUco marker supplies position and heading |
+| Laptop | Calibration, click interface, online motion estimates and direct motor commands |
+| ESP8266 robot | Parses wheel commands and enforces local watchdog/output limits |
+| Raspberry Pi worker | Runs bounded trajectory simulations over authenticated HTTP |
+
+The camera stream stays on the laptop. The worker receives compact state snapshots
+and has no robot transport configuration. Worker failure leaves local control
+available; lost camera tracking still causes a stop.
+
+### Where AI and computation enter
+
+- **Online system identification:** motion-rate and drift estimates adapt from observed movement.
+- **Model-based evaluation:** the worker compares candidate controllers using Monte Carlo rollouts.
+- **Optional classifier:** a separate red-round-token experiment uses logistic classification on
+  synthetic data. Its scope and limits are in the [model card](models/MODEL_CARD.md).
+
+Printed-marker detection is geometric computer vision. The project does not claim
+a neural navigation model, robot-side TinyML or onboard obstacle detection.
+
+## Recorded results
+
+| Experiment | Result | Evaluation mode |
+|---|---|---|
+| Complete software suite | **181 passed** | Automated regression, firmware-model, transport and vision tests |
+| Low-latency continuous control | 10/10 tasks completed | Seeded two-robot simulation |
+| 0.3 s camera delay, continuous control | 0/10 tasks completed | Seeded two-robot simulation |
+| 0.3 s camera delay, burst control | 10/10 tasks completed | Seeded two-robot simulation |
+| Burst control, 15% packet loss | 10/10 tasks completed | Seeded two-robot simulation |
+| Poor initial motion estimates, learning on / off | 10/10 versus 0/10 waypoint courses | Learning ablation |
+| Recorded video goal | 17.45 simulated seconds; 20.7 mm true final error | Single synthetic-camera demonstration |
+| ESP8266 historical bench | 10/10 zero-speed commands accepted; recorded indicator/watchdog checks | Archived board-state records |
+
+The two-robot scenario experiments and the single-robot video are different tasks.
+Success rates from ten seeds describe those simulator runs, not real-world reliability.
+See the [report](reports/review2/review2.pdf) for definitions and comparisons.
+
+The team reported an earlier phone-camera click-to-go run. The robots were
+dismantled before final documentation, so this submission uses archived bench
+records and reproducible software evaluation. It contains no new hardware footage,
+measured physical arrival-error series or current physical-Pi runtime benchmark.
+
+## Run the simulation
+
+Python 3.12 is the tested laptop environment. No camera, Pi or robot is needed.
+
+```sh
+python -m venv .venv
+# Activate the environment for your operating system, then:
+python -m pip install -r requirements.txt
+python scripts/click_go.py --config config.example.toml --bot 2 --tracking aruco --marker-id 1 --dry-run
+```
+
+Left-click selects a goal; right-click or **x** stops; **q** closes the interface.
+The synthetic run uses the same marker tracker and goal controller as the camera path.
+
+Recreate the captioned simulation video:
+
+```sh
+python -m pip install -r requirements-demo.txt
+python scripts/render_demo.py
+```
+
+The renderer writes an MP4, GIF excerpt, preview image, trajectory CSV and worker
+result JSON to `media/`. A real authenticated HTTP request runs against a local
+worker instance. No physical devices are contacted.
+
+Reproduce the numerical evaluation:
+
+```sh
+python -m pytest -q
+python scripts/reproduce_review2.py
+```
+
+Firmware comparison tests require `g++`. On Windows/MSYS2, include `ucrt64/bin` on
+PATH so its runtime libraries are available. GitHub Actions runs the suite on Linux.
+
+## Camera and robot configuration
+
+The archived live path remains available for a reassembled platform. Copy
+`config.example.toml` to private `config.toml` and set the arena dimensions, camera
+source and robot address. Calibrate floor corners in order: bottom-left,
+bottom-right, top-right, top-left.
+
+```sh
+python scripts/click_go.py --bot 2 --tracking aruco --marker-id 1 --source http://PHONE_IP:8080/video --recalibrate
+```
+
+`--source 0` selects a laptop webcam. `--tracking led` preserves the earlier
+single-robot LED workflow. A printed marker's top edge points toward the robot's front.
+**Firmware ID and printed marker ID are independent:** `--bot 2 --marker-id 1`
+tracks printed marker 1 while addressing firmware robot 2. Two visible robots need
+distinct printed identities.
+
+The included firmware defaults to motor-disabled bench mode. Reassembly requires
+checking power, wheel directions and calibration before deliberate motor enablement.
+There are no onboard navigation sensors or obstacle avoidance.
+
+### Raspberry Pi worker
+
+On the Pi, install the compute-only service:
+
+```sh
+cd ~/pi-swarm
+sh scripts/install_offload.sh
+systemctl --user status pi-offload.service
+```
+
+The service requires Python 3.11+ standard-library modules. Privately copy its
+`local_token.txt` to the laptop and add `--offload http://PI_IP:8770` to the laptop
+command. Only the latest goal can receive advice; cancelled and stale results are
+discarded. See [offloading details](docs/OFFLOADING.md).
+
+## Source map
+
+```text
+swarm/
+  vision/                  ArUco, LED detection, calibration and synthetic images
+  sim/                     differential-drive world and firmware model
+  marker_go.py             printed-marker goal controller
+  control.py               continuous and adaptive burst control
+  offload*.py              rollout evaluator, HTTP service and async client
+scripts/                   camera runner, simulation renderer and hardware utilities
+firmware/bot/              ESP8266 sketch and host-testable safety logic
+tests/                     automated tests and firmware comparison harness
+models/                    optional classifier and model card
+media/                     simulation video, preview and recording outputs
+docs/                      architecture, compute interface and hardware references
+reports/review2/            PDF, LaTeX source, figures and numerical evidence
+.github/workflows/         automated software checks
+```
+
+Legacy Pi-coordinator modules remain for regression coverage. The current entry
+point is `scripts/click_go.py`; see [architecture history](docs/HISTORY.md).
+Private settings, credentials, Wi-Fi headers and machine-specific binaries are excluded.
 
 ## Academic details
 
-**Course:** AI in Robotics — Semester Project  
+**Course:** AI and Robotics  
 **Guide:** Dr. A. Baskar  
 **Department:** Computer Science & Engineering  
 **Institution:** Amrita School of Computing, Coimbatore
@@ -28,157 +207,7 @@ The Pi evaluates alternative control profiles asynchronously, outside the motor-
 | Gudi Hemanth | CB.SC.U4CSE23619 |
 | D. Uday Kumar | CB.SC.U4CSE23655 |
 
-**Acknowledgement:** This project was carried out as part of AI in Robotics — Semester
-Project, under the guidance of Dr. A. Baskar, Department of Computer Science & Engineering,
-Amrita School of Computing, Coimbatore. The team acknowledges the course review framework,
-institutional learning support, and the open-source tools credited in
-[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
-
-## Architecture
-
-```mermaid
-flowchart LR
-    C[Overhead phone camera / webcam] -->|Video| L[Laptop: vision + clicked goal + adaptive control]
-    L -->|Direct Wi-Fi UDP| B[ESP8266 robot: motor driver + local failsafe]
-    L -. Compact goal snapshot .-> P[Raspberry Pi: Monte Carlo profile evaluation]
-    P -. Advisory result .-> L
-```
-
-**Camera video does not pass through the Pi.** The Pi does not send motor commands in
-this architecture. Losing the worker does not block the laptop loop. Losing camera
-tracking still stops the robot; the Pi is not a substitute for sensing.
-
-## What is implemented
-
-- Top-down camera tracking with **ArUco markers**, or the existing red-LED mode for one robot.
-- Local click-to-go control using bounded bursts and online motion-rate/motor-drift learning.
-- Firmware parsing, a 500 ms no-command watchdog, a 2.5 s marker pulse cap, re-arm logic,
-  and a 72% PWM duty cap. Bench builds disable motor output by default.
-- An optional authenticated Pi worker that compares three burst profiles using seeded
-  trajectory simulations. Results are displayed/logged; recommendations are **not applied
-  automatically to moving hardware**.
-- Synthetic camera, firmware model, two-robot simulation and regression tests.
-- An optional synthetic-data-trained red-round-token classifier, separate from the
-  human-selected click-to-go task. See [model card](models/MODEL_CARD.md).
-
-ArUco geometry is not a neural network. The adaptive element is online system
-identification; Pi profile evaluation is model-based Monte Carlo analysis. No cloud
-LLM, ESP-NOW mesh, robot-side TinyML, or onboard obstacle sensing is claimed.
-
-## Evidence and current limits
-
-| Evidence | Result | Interpretation |
-|---|---|---|
-| Fresh full software suite, 3 Nov 2026 | **181 passed** | Includes firmware-model, geometry, control, transport and offload tests |
-| Fast camera / continuous control | 10/10 simulated successes | Seeded simulator reference |
-| 0.3 s delayed camera / continuous control | 0/10 | Shows the delayed-feedback failure mode |
-| 0.3 s delayed camera / burst control | 10/10 | Slower stop-and-measure behavior |
-| Burst control with 15% packet loss | 10/10 | Simulation, not hardware reliability |
-| Historical real ESP8266 bench | 10/10 zero commands accepted; reported LED/watchdog checks passed | No physical navigation accuracy measurement |
-| Teammate's phone-camera click-to-go | Reported working by the team | No quantified floor-trial dataset supplied |
-| New Pi compute worker | Implemented and tested locally | Current physical-Pi runtime/deployment benchmark still pending |
-
-See [scenario CSV](reports/review2/evidence/scenario_results.csv),
-[learning ablation](reports/review2/evidence/learning_ablation.json),
-[offload result](reports/review2/evidence/offload_validation.json), and
-[full test output](reports/review2/evidence/test_results.txt).
-
-The robots have **no onboard range/position sensors**. Use a clear, supervised arena.
-Real arrival accuracy, stopping distance, and repeated multi-robot navigation remain
-to be measured. A Pi Zero W is not claimed to be faster than a modern laptop;
-offloading isolates work from the control thread.
-
-## Quick start: simulation
-
-Python 3.12 is the tested laptop environment. From the repository root:
-
-```powershell
-uv venv --python 3.12 .venv
-uv pip install --python .venv/Scripts/python.exe -r requirements.txt
-.venv/Scripts/python.exe -m pytest -q
-.venv/Scripts/python.exe scripts/click_go.py --config config.example.toml --bot 2 --tracking aruco --marker-id 1 --dry-run
-```
-
-Linux/macOS: replace `.venv/Scripts/python.exe` with `.venv/bin/python`.
-Firmware host tests require `g++`; without it those tests are skipped. On Windows/MSYS2,
-put its `ucrt64/bin` directory on PATH so compiler subprocesses load the matching DLLs.
-
-## Phone camera → laptop → robot
-
-1. Join the laptop, phone camera, and robot to the same 2.4 GHz network allowing peer traffic.
-2. Copy `config.example.toml` to private `config.toml`; set measured arena dimensions,
-   the actual robot IP, and the phone stream URL.
-3. Mount the camera overhead. Put a flat marker on the robot with its top edge toward
-   the robot's front. For two visible robots use distinct marker IDs.
-4. Calibrate by clicking the floor corners: **bottom-left, bottom-right, top-right, top-left**.
-   Verify a 20 cm displacement with a ruler before enabling motion.
-5. Run the direct-control interface:
-
-```powershell
-.venv/Scripts/python.exe scripts/click_go.py --bot 2 --tracking aruco --marker-id 1 --source http://PHONE_IP:8080/video --recalibrate
-```
-
-**Printed marker ID and firmware robot ID are independent.** The team's pictured
-marker decoded as ID 1. `--bot 2 --marker-id 1` means “track printed marker 1 and
-send commands to firmware bot 2”; it does not change the board's identity.
-
-Left-click sets the goal; right-click or **x** stops; **q** quits. `--source 0`
-uses the laptop webcam instead. Preserve the earlier LED workflow with
-`--tracking led` (or omit the flag); **m**, **[**, **]** adjust its detector.
-
-The included firmware defaults to **motor-disabled bench mode**. A working teammate
-robot may have a different commissioned build; do not reflash it unnecessarily.
-Motor enablement, wheel direction and untethered power must be checked deliberately.
-
-## Optional Raspberry Pi compute worker
-
-Copy the project to the Pi and run:
-
-```sh
-cd ~/pi-swarm
-sh scripts/install_offload.sh
-systemctl --user status pi-offload.service
-```
-
-The worker requires only Python 3.11+ standard-library modules. The installer stops
-the previous experimental Pi command-sending service and enables compute-only port 8770.
-Copy `local_token.txt` privately from Pi to laptop. Then append:
-
-```powershell
-.venv/Scripts/python.exe scripts/click_go.py --bot 2 --tracking aruco --marker-id 1 --offload http://PI_IP:8770
-```
-
-The HUD reports background job state or the completed simulation comparison.
-Changing/cancelling the goal invalidates older results. Worker offline/busy means
-“advice unavailable”; camera processing and direct robot control continue locally.
-The worker's assumed physics must be calibrated before treating its estimates as
-physical predictions. See [OFFLOADING.md](docs/OFFLOADING.md).
-
-## Repository guide
-
-```text
-swarm/                    vision, local controllers, simulation, offload worker/client
-scripts/                  direct runner, firmware tools, Pi worker installer
-firmware/bot/             ESP8266 sketch and host-testable safety logic
-tests/                    automated regression and transport checks
-models/                   optional classifier weights and model card
-docs/                     architecture, operating guide, demo plan and attribution
-reports/review2/           PDF, editable .tex, figures and reproducible evidence
-.github/workflows/        software test workflow
-```
-
-Earlier Pi-central modules remain in `swarm/` for reproducibility/regression tests;
-they are not the default operating path. [Architecture history](docs/HISTORY.md)
-explains the change. Start new work from [HANDOFF.md](HANDOFF.md).
-
-## Report and academic integrity
-
-The report follows the supplied course section structure and acknowledges technical
-sources. Simulation results and physical evidence are distinguished throughout.
-AI-assisted implementation/documentation support is disclosed. No plagiarism
-percentage or independent similarity certification is asserted. The team must use
-the institution's checker and substantiate implementation claims in its live review.
-
-Private Wi-Fi headers, local settings, auth tokens, hardware binaries and machine
-addresses are excluded from this publication. Third-party dependencies retain
-their upstream terms and attribution.
+**Acknowledgement:** The team thanks Dr. A. Baskar for guidance and the Department
+of Computer Science & Engineering, Amrita School of Computing, Coimbatore, for
+academic and laboratory support. Technical sources and dependencies are credited
+in the report and [third-party notices](THIRD_PARTY_NOTICES.md).

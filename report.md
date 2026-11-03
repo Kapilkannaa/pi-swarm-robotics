@@ -1,37 +1,38 @@
-# Review 2 submission status - 3 November 2026
+# Final submission record
 
-## Published deliverables
+## Published contents
 
-- Repository: https://github.com/Kapilkannaa/pi-swarm-robotics
-- Release: https://github.com/Kapilkannaa/pi-swarm-robotics/releases/tag/review2-2026-11-03
-- Report: reports/review2/review2.pdf (16 pages, compiled from review2.tex)
-- Complete LaTeX bundle: attached to the release.
-- Team/course/guide attribution and acknowledgement: README and report front matter.
+- [Repository](https://github.com/Kapilkannaa/pi-swarm-robotics)
+- [Release downloads](https://github.com/Kapilkannaa/pi-swarm-robotics/releases/tag/review2-2026-11-03)
+- Report: `reports/review2/review2.pdf`, compiled from editable LaTeX.
+- Demonstration: `media/pi-swarm-simulation.mp4`, with source and numerical outputs.
+- Project guide: `PROJECT_GUIDE.md`.
 
-## Validation
+## Recorded checks
 
-- Fresh complete local suite: **181 passed**, 243.58 seconds.
-- Published clean tree: 181 tests collected; 10 offload/marker tests passed independently.
-- GitHub Actions: **success**, run 41585904898.
-- PDF: all pages rendered and inspected; required sections/team details/links checked.
-- Published PDF checksum matches the reviewed local copy.
-- Public stage checked for private config files, credentials and firmware binaries.
+The complete software suite passed 181 tests. The archived full test log and seeded
+scenario results are in `reports/review2/evidence/`. The recorded video completes
+its goal, emits zero commands during the explicit marker loss, and obtains a
+background HTTP result. All PDF pages were rendered and checked. Public files
+were screened for private settings, tokens, Wi-Fi credentials and firmware binaries.
 
-## Architecture
+## Final architecture
 
-Phone/laptop camera -> laptop vision and adaptive control -> direct UDP -> robot.
-Pi computes advisory Monte Carlo profile comparisons asynchronously. It is not a
-camera relay or motor sender. Printed marker and firmware IDs are independent.
+Phone or webcam -> laptop vision and adaptive control -> direct UDP -> ESP8266.
+The Pi branch runs advisory Monte Carlo evaluation asynchronously. The worker
+does not relay video or issue wheel commands.
 
-## Evidence limits and remaining physical work
+## Evaluation scope
 
-Simulation, historical bench records and teammate-reported operation are labelled
-separately. Physical arrival-error/stopping-distance trials, repeated floor-run
-measurements and the new compute-only worker's current Pi benchmark remain pending.
-No new robot was moved/reflashed while preparing this submission. The institutional
-plagiarism checker must determine similarity; no certified percentage is claimed.
+The robots were dismantled before final documentation. This archive contains
+software simulations, historical bench records and clearly identified team-reported
+operation. New physical trials, hardware video and current physical-Pi runtime
+measurements are outside the submitted evaluation. No similarity percentage is
+claimed without an actual institutional checker report.
 
 ## Reproduction
 
-Start with HANDOFF.md. Run pytest for software checks; use scripts/reproduce_review2.py
-for scenario tables. Source/figures/evidence for the report are under reports/review2.
+Use the README and `PROJECT_GUIDE.md` for entry points. Run `python -m pytest -q`
+for software checks, `python scripts/reproduce_review2.py` for numerical tables,
+and `python scripts/render_demo.py` for the video after installing
+`requirements-demo.txt`. No physical hardware is needed for these commands.

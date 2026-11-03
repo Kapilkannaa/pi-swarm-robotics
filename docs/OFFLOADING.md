@@ -12,7 +12,7 @@ assumed control settings. A default job runs 12 trials for each of three profile
 The randomized cases cover speed, wheel mismatch, camera latency and packet loss.
 Results include simulated successes, mean completion time, worst error and near-edge
 counts. These are model estimates, not physical safety predictions. Current physical
-Pi runtime measurements are pending; the saved submission benchmark is from laptop.
+Pi runtime was not measured in the final evaluation; the saved benchmark is from the laptop.
 
 The client uses a background thread and a latest-goal mailbox. It discards results
 for cancelled/superseded goals. Offline/busy workers leave local control operational.

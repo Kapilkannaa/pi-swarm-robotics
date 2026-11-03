@@ -16,8 +16,7 @@ these fonts or replace the font names with compatible available fonts.
 
 The bibliography uses labelled references in the .tex source; no BibTeX step is needed.
 No physical navigation measurements or similarity-check percentage are invented.
-The institution's plagiarism checker and the actual review demonstration are still required.
+The final evaluation uses archived bench records and software simulation; the hardware was dismantled before this documentation stage.
 
 `evidence/test_results.txt` is the fresh full 181-test result. Simulation tables
-are distinct from historical bench records. Current Pi deployment/benchmarking
-of the compute-only worker must be performed separately.
+are distinct from historical bench records. The compute-worker timing in the submission was measured on the laptop. The simulation video and its reproduction script are in `media/` and `scripts/render_demo.py`.

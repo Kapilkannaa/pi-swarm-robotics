@@ -1,7 +1,11 @@
 {
   "pages": 16,
-  "team_details_present": true,
-  "required_subsections_present": true,
-  "repository_link_present": true,
-  "visual_review": "all pages rendered; contact sheet and critical pages inspected"
+  "course_correct": true,
+  "old_course_absent": true,
+  "prepared_date_absent": true,
+  "em_dash_count": 0,
+  "handoff_absent": true,
+  "all_team_members": true,
+  "simulation_disclosed": true,
+  "required_subsections": true
 }

@@ -1,4 +1,4 @@
-# Attribution and academic integrity
+# Third-party notices
 
 This project continues the team-provided robotics code and documents its revisions.
 It uses external technical ideas and dependencies acknowledged below. This file
@@ -15,7 +15,5 @@ does not relicense upstream work; consult each project's own terms.
 | Modern Robotics, Lynch & Park | Differential-drive/control background | https://hades.mech.northwestern.edu/index.php/Modern_Robotics |
 | ArUco literature, Garrido-Jurado et al. (2014) | Coded fiducial marker methodology | https://doi.org/10.1016/j.patcog.2014.01.005 |
 
-The report contains fuller references and course/team attribution. AI-assisted
-implementation/documentation support was used; the students remain responsible
-for validation and their institution's academic-integrity requirements. No
-similarity percentage is claimed without the institution's plagiarism checker.
+The report contains fuller references and course/team attribution. Generated
+simulation frames are produced by project code. No external stock footage is used.

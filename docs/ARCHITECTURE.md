@@ -10,4 +10,4 @@ not automatically applied. Worker outage does not bypass camera freshness checks
 
 Use scripts/click_go.py. LED tracking is the original default; ArUco uses
 --tracking aruco --marker-id N. Firmware and printed IDs are independent.
-See ../HANDOFF.md and OFFLOADING.md for commissioning and compute-only setup.
+See ../PROJECT_GUIDE.md and OFFLOADING.md for identities and compute-only setup.

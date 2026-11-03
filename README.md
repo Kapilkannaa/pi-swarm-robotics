@@ -193,12 +193,12 @@ Private settings, credentials, Wi-Fi headers and machine-specific binaries are e
 
 ## Academic details
 
-**Course:** AI and Robotics  
-**Guide:** Dr. A. Baskar  
-**Department:** Computer Science & Engineering  
-**Institution:** Amrita School of Computing, Coimbatore
+**Mentor:** Dr. A. Baskar  
+**Course:** 23CSE472 - Artificial Intelligence and Robotics  
+**Department:** Department of Computer Science and Engineering  
+**Institution:** School of Computing, Amrita Vishwa Vidyapeetham, Coimbatore, India
 
-| Team member | Roll number |
+| Student name | Registration number |
 |---|---|
 | Kapil Kannaa G | CB.SC.U4CSE23036 |
 | Mitali Patle | CB.SC.U4CSE23038 |
@@ -206,7 +206,8 @@ Private settings, credentials, Wi-Fi headers and machine-specific binaries are e
 | Gudi Hemanth | CB.SC.U4CSE23619 |
 | D. Uday Kumar | CB.SC.U4CSE23655 |
 
-**Acknowledgement:** The team thanks Dr. A. Baskar for guidance and the Department
-of Computer Science & Engineering, Amrita School of Computing, Coimbatore, for
-academic and laboratory support. Technical sources and dependencies are credited
+**Acknowledgement:** This case study was completed as part of 23CSE472 - Artificial
+Intelligence and Robotics under the mentorship of Dr. A. Baskar. The team thanks the
+Department of Computer Science and Engineering, School of Computing, Amrita Vishwa
+Vidyapeetham, Coimbatore, India, for academic and laboratory support. Technical sources and dependencies are credited
 in the report and [third-party notices](THIRD_PARTY_NOTICES.md).
